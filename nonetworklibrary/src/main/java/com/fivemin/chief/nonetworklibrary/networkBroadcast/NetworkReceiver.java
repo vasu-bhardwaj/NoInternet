@@ -7,12 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.contract.NetworkObserver;
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.contract.ObserverRegister;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Base class for code that receives and handles broadcast intents sent by
  * {@link BroadcastReceiver}.
@@ -27,24 +21,7 @@ import java.util.List;
  * </p>
  */
 
-public class NetworkReceiver extends BroadcastReceiver implements ObserverRegister {
-
-    private ArrayList<NetworkObserver> observers = new ArrayList<NetworkObserver>();
-
-    @Override
-    public void registerObserver(NetworkObserver observer) {
-
-    }
-
-    @Override
-    public void removeObserver(NetworkObserver observer) {
-
-    }
-
-    @Override
-    public void notifyObservers() {
-
-    }
+public class NetworkReceiver extends BroadcastReceiver {
 
     boolean oneTime = false;
     private String TAG = "NetworkRecevier";
@@ -63,6 +40,7 @@ public class NetworkReceiver extends BroadcastReceiver implements ObserverRegist
         isNetworkActive = networkInfo != null && networkInfo.isConnected();
         init();
     }
+
 
     void init() {
         // to make sure list is only allocated ones.
