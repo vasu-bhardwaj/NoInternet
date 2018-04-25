@@ -3,11 +3,10 @@ package com.fivemin.chief.nointernet;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.contract.NoInternet;
+import com.fivemin.chief.nonetworklibrary.networkBroadcast.NoInternet;
 
 public class MainActivity extends AppCompatActivity {
-    NoInternet mNoInternet;
-
+    private NoInternet mNoInternet;
     @Override
     protected void onResume() {
         super.onResume();

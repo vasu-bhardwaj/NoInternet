@@ -29,7 +29,6 @@ public class NetworkReceiver extends BroadcastReceiver {
     private NetworkInfo networkInfo = null;
     private boolean isNetworkActive = true;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         connectivityManager = (ConnectivityManager) context.getSystemService(
@@ -37,7 +36,9 @@ public class NetworkReceiver extends BroadcastReceiver {
         if (connectivityManager != null) {
             networkInfo = connectivityManager.getActiveNetworkInfo();
         }
+
         isNetworkActive = networkInfo != null && networkInfo.isConnected();
+
         init();
     }
 
@@ -49,5 +50,5 @@ public class NetworkReceiver extends BroadcastReceiver {
         }
         oneTime = true;
     }
-}
 
+}

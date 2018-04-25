@@ -1,11 +1,9 @@
-package com.fivemin.chief.nonetworklibrary.networkBroadcast.contract;
+package com.fivemin.chief.nonetworklibrary.networkBroadcast;
 
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.util.Log;
-
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.NetworkReceiver;
 
 /**
  * This class is used to register and unregister broadcast and finish
