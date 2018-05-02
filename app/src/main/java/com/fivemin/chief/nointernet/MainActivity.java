@@ -1,28 +1,24 @@
 package com.fivemin.chief.nointernet;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.NoInternet;
+import com.fivemin.chief.nonetworklibrary.networkBroadcast.ConnectionCallback;
+import com.fivemin.chief.nonetworklibrary.networkBroadcast.NetworkMonitor;
 
-public class MainActivity extends AppCompatActivity {
-    private NoInternet mNoInternet;
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mNoInternet.RegisterReciver(this);
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mNoInternet.UnRegisterReciver();
-    }
+public class MainActivity extends AppCompatActivity implements ConnectionCallback {
+    final String TAG = "MainActivity";
+    private NetworkMonitor mNetworkMonitor;
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mNoInternet.finish();
+    public void Networkupdate(boolean isConnectionActive) {
+        if (!isConnectionActive) {
+            Log.d(TAG, "No network Connectivity");
+        }
     }
 
     @Override
@@ -30,8 +26,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNoInternet = new NoInternet();
+        if (mNetworkMonitor == null) {
+            mNetworkMonitor = new NetworkMonitor();
+        }
     }
 
+    @Override
+    protected void onResume() {
 
+
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkMonitor, intentFilter);
+        mNetworkMonitor.register(this);
+
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+
+        unregisterReceiver(mNetworkMonitor);
+        mNetworkMonitor.remove(this);
+
+
+        super.onPause();
+    }
 }
