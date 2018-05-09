@@ -10,63 +10,60 @@ import android.util.Log;
 import com.fivemin.chief.nonetworklibrary.networkBroadcast.ConnectionCallback;
 import com.fivemin.chief.nonetworklibrary.networkBroadcast.DefaultNoNet;
 import com.fivemin.chief.nonetworklibrary.networkBroadcast.NetworkMonitor;
-import com.fivemin.chief.nonetworklibrary.networkBroadcast.Notify;
+import com.fivemin.chief.nonetworklibrary.networkBroadcast.NoNet;
 
 
 public class MainActivity extends AppCompatActivity implements ConnectionCallback {
     final String TAG = "MainActivity";
-    Notify mNotify;
-    private boolean connectionStatus = true;
+    FragmentManager fm = null;
+    DefaultNoNet defaultNoNet = null;
+    NoNet mNoNet;
     private NetworkMonitor mNetworkMonitor;
 
     @Override
     public void Networkupdate(boolean isConnectionActive) {
         if (!isConnectionActive) {
             Log.d(TAG, "No network Connectivity");
-            connectionStatus = isConnectionActive;
-            showEditDialog();
+            mNoNet.showDefaultDialog(fm);
         } else {
-            this.connectionStatus = isConnectionActive;
+            Log.d(TAG, "network Connectivity is present");
+            mNoNet.hideDefaultDialog();
         }
-    }
-
-    private void showEditDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        DefaultNoNet editNameDialogFragment = DefaultNoNet.newInstance();
-        editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        mNoNet = new NoNet();
 
         if (mNetworkMonitor == null) {
             mNetworkMonitor = new NetworkMonitor();
-            mNotify = new Notify();
-            mNotify.Notification("test", "asda", R.drawable.close_cross);
         }
+        fm = getSupportFragmentManager();
 
+        defaultNoNet = DefaultNoNet.newInstance();
     }
 
     @Override
     protected void onResume() {
 
-        mNotify.unregister(this);
-
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mNetworkMonitor, intentFilter);
+
         mNetworkMonitor.register(this);
+
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        boolean a = false;
-        mNotify.register(this, connectionStatus);
+
         unregisterReceiver(mNetworkMonitor);
         mNetworkMonitor.remove(this);
+
         super.onPause();
     }
 }
