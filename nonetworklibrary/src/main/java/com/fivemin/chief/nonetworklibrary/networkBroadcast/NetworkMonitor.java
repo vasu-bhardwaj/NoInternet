@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 
 public class NetworkMonitor extends BroadcastReceiver implements ConnectionCallbackRegister {
-    private static boolean duplicateBroadcastCheck = false;
     private final String TAG = "NetworkMonitor";
     private boolean isConnectionActive;
     private ArrayList<ConnectionCallback> mCallbackArrayList = null;
