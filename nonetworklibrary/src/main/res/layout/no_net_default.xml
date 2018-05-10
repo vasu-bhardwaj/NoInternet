@@ -16,7 +16,7 @@
 
     <ImageView android:id="@+id/background"
                android:layout_width="wrap_content"
-               android:layout_height="450dp"
+               android:layout_height="wrap_content"
                android:layout_marginBottom="20dp"
                android:src="@drawable/flying_man"
                app:layout_constraintBottom_toBottomOf="parent"/>
