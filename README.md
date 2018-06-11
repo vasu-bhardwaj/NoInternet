@@ -5,7 +5,7 @@
 
 
 
-![Alt Text](https://github.com/vasu-bhardwaj/OnBoardingEasy/blob/master/preview/ImgPreview.gif)
+![Alt Text](https://github.com/vasu-bhardwaj/NoInternet/blob/master/IMG_20180611_143724.jpg)
 
 
 
