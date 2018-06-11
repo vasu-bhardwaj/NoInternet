@@ -23,10 +23,8 @@ public class NetworkMonitor extends BroadcastReceiver implements ConnectionCallb
     public NetworkMonitor() {
         if (mCallbackArrayList == null) {
             mCallbackArrayList = new ArrayList<>(1);
-            Log.d(TAG, "Network " + "NULL NEW LIST CREATED");
-        } else if (mCallbackArrayList.size() <= 0) {
-            Log.d(TAG, "SIZE 0  NEW ARRAY LIST CREATED");
-        }
+         } else if (mCallbackArrayList.size() <= 0) {
+         }
     }
 
     @Override
